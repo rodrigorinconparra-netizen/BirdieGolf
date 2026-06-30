@@ -3,11 +3,13 @@
 import { z } from "zod";
 import { eq, sql } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { hashPassword, verifyPassword } from "@/lib/auth/password";
 import { createSession, destroySession } from "@/lib/auth/session";
 import { createDefaultBag } from "@/lib/bag";
+import { rateLimit, clientIp } from "@/lib/rate-limit";
 
 export interface AuthState {
   error?: string;
@@ -28,6 +30,12 @@ export async function loginAction(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  const ip = clientIp(await headers());
+  const rl = rateLimit(`login:${ip}`, 10, 60_000);
+  if (!rl.ok) {
+    return { error: `Demasiados intentos. Espera ${rl.retryAfterSec}s e inténtalo de nuevo.` };
+  }
+
   const parsed = loginSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
@@ -59,6 +67,12 @@ export async function registerAction(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  const ip = clientIp(await headers());
+  const rl = rateLimit(`register:${ip}`, 5, 60_000);
+  if (!rl.ok) {
+    return { error: `Demasiados intentos. Espera ${rl.retryAfterSec}s e inténtalo de nuevo.` };
+  }
+
   const parsed = registerSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
