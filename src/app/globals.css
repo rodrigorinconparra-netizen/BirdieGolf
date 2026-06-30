@@ -1,26 +1,89 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  /* Surfaces — warm cream / beige Apple-like palette */
+  --color-cream: #faf8f3;
+  --color-cream-deep: #f2ede4;
+  --color-sand: #ece4d8;
+  --color-sand-deep: #d9cdb8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Text */
+  --color-ink: #1c1c1e;
+  --color-ink-soft: #3a3a3c;
+  --color-muted: #6e6e73;
+  --color-faint: #a1a1a6;
+
+  /* Brand — golf green */
+  --color-accent: #3a7d5d;
+  --color-accent-soft: #4f9d77;
+  --color-accent-deep: #2c6147;
+
+  /* Semantics */
+  --color-positive: #2faf5a;
+  --color-negative: #e5484d;
+  --color-warning: #f5a623;
+
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(1200px 620px at 82% -12%, rgba(79, 157, 119, 0.12), transparent 60%),
+    radial-gradient(1000px 520px at -12% 6%, rgba(217, 205, 184, 0.42), transparent 55%),
+    var(--color-cream);
+  background-attachment: fixed;
+  color: var(--color-ink);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@layer components {
+  /* Frosted-glass surface, the core Apple-style building block */
+  .glass {
+    @apply rounded-3xl border border-white/70 bg-white/65 shadow-[0_10px_34px_rgba(28,28,30,0.07)] backdrop-blur-2xl;
+  }
+  .glass-soft {
+    @apply rounded-2xl border border-white/60 bg-white/45 backdrop-blur-xl;
+  }
+
+  /* Inputs */
+  .field {
+    @apply w-full rounded-2xl border border-black/8 bg-white/80 px-4 py-3 text-[15px] text-ink
+      placeholder:text-faint outline-none transition
+      focus:border-accent/40 focus:bg-white focus:ring-4 focus:ring-accent/10;
+  }
+
+  /* Buttons — self-contained (Tailwind v4 can't @apply other component classes) */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-[15px]
+      font-medium transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50
+      bg-accent text-white shadow-[0_8px_20px_rgba(58,125,93,0.28)] hover:bg-accent-deep;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-[15px]
+      font-medium transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50
+      border border-black/8 bg-white/70 text-ink-soft hover:bg-white;
+  }
+}
+
+/* Dropdown entrance (e.g. the mobile navbar menu) */
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }

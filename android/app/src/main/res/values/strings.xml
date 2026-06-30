@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Birdie</string>
+    <string name="title_activity_main">Birdie</string>
+    <string name="package_name">com.birdiegolf.app</string>
+    <string name="custom_url_scheme">com.birdiegolf.app</string>
+</resources>
