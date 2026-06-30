@@ -10,7 +10,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
  *   - set the env var:  CAP_SERVER_URL=https://tu-dominio  (then `npm run cap:sync`)
  */
 const SERVER_URL =
-  process.env.CAP_SERVER_URL ?? "https://REEMPLAZA-CON-TU-DOMINIO.vercel.app";
+  process.env.CAP_SERVER_URL ?? "https://birdie-golf-eight.vercel.app";
 
 const config: CapacitorConfig = {
   appId: "com.birdiegolf.app",
