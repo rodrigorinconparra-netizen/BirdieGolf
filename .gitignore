@@ -44,3 +44,6 @@ next-env.d.ts
 *.log
 dev.log
 /.vercel
+
+# Firebase service-account private keys (SECRET — never commit)
+*firebase-adminsdk*.json

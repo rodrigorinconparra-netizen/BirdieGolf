@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "501001332328",
+    "project_id": "golfapp-cc615",
+    "storage_bucket": "golfapp-cc615.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501001332328:android:ce53419247dbe6c0bdbddd",
+        "android_client_info": {
+          "package_name": "com.birdiegolf.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXbw2TH_quNIojOZPGrOm9ronXxpVnI2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
